@@ -2,18 +2,25 @@ mode: ContinuousDeployment
 
 branches:
   main:
-    increment: Minor
     regex: ^main$
-    tag: ''
+    increment: Minor
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    is-release-branch: false
+    is-mainline: true
+    label: ''  
+
   feature:
     regex: ^feature/
     increment: Patch
-    tag: beta
+    label: beta
+
   release:
     regex: ^release/
     increment: Patch
-    tag: rc
+    label: rc
+
   hotfix:
     regex: ^hotfix/
     increment: Patch
-    tag: hotfix
+    label: hotfix
