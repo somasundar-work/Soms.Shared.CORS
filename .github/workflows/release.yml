@@ -2,6 +2,8 @@ name: Build and Release Library
 
 on:
   push:
+    paths:
+      - Soms.Shared.CORS/**
     branches:
       - main
       - release/*
@@ -9,7 +11,7 @@ on:
       - feature/*
 
 permissions:
-  contents: write
+  contents: write  
 
 jobs:
   release:
@@ -19,7 +21,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -35,7 +37,7 @@ jobs:
         id: gitversion
         uses: gittools/actions/gitversion/execute@v1
         with:
-          configFilePath: './GitVersion.yml'  
+          configFilePath: './.github/version.yml'  
 
       - name: Restore Dependencies
         run: dotnet restore
@@ -48,16 +50,14 @@ jobs:
           dotnet pack Soms.Shared.CORS/Soms.Shared.CORS.csproj \
             --configuration Release \
             --output ./artifacts \
-            /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }} 
+            /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
 
       - name: Push to NuGet (nuget.org)
         run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-        if: github.ref_type == 'push'  
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.gitversion.outputs.fullSemVer }}
+          tag_name: ${{ steps.gitversion.outputs.fullSemVer }} 
           name: Release ${{ steps.gitversion.outputs.semVer }}
           files: ./artifacts/*.nupkg
-        if: github.ref_type == 'push'
