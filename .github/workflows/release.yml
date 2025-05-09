@@ -2,8 +2,8 @@ name: Build and Release Library
 
 on:
   push:
-    paths:
-      - Soms.Shared.Cors/**
+    # paths:
+    #   - Soms.Shared.Cors/**
     branches:
       - main
       - release/*
