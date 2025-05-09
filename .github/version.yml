@@ -1,6 +1,7 @@
 mode: ContinuousDeployment
-commit-message-incrementing: Enabled
-
+versioning-strategy: Auto
+versioning-strategy-config:
+  auto-increment: true
 branches:
   main:
     increment: Major
