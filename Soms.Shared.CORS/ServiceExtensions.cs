@@ -1,5 +1,5 @@
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Soms.Shared.CORS;
 
@@ -15,11 +15,14 @@ public static class ServiceExtensions
         {
             throw new ArgumentException("corsOptions must be set");
         }
-        
-        if (!corsOptions.IsEnabled) return services;
-        
-        corsOptions.Name = string.IsNullOrWhiteSpace(corsOptions.Name) ? Constants.DefaultPolicyName : corsOptions.Name;
-        
+
+        if (!corsOptions.IsEnabled)
+            return services;
+
+        corsOptions.Name = string.IsNullOrWhiteSpace(corsOptions.Name)
+            ? Constants.DefaultPolicyName
+            : corsOptions.Name;
+
         if (corsOptions.Origins == null || corsOptions.Origins.Count == 0)
         {
             throw new ArgumentException("Origins must be set");
@@ -43,7 +46,7 @@ public static class ServiceExtensions
                     {
                         builder.AllowAnyMethod();
                     }
-                        
+
                     if (corsOptions.Headers.Count > 0)
                     {
                         builder.WithHeaders(corsOptions.Headers.ToArray());
@@ -62,7 +65,8 @@ public static class ServiceExtensions
                     {
                         builder.AllowCredentials();
                     }
-                });
+                }
+            );
         });
         return services;
     }

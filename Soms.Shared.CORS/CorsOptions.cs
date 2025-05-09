@@ -2,7 +2,7 @@ namespace Soms.Shared.CORS;
 
 public sealed class CorsOptions
 {
-    public bool IsEnabled { get; set; } =  false;
+    public bool IsEnabled { get; set; } = false;
     public string Name { get; set; } = Constants.DefaultPolicyName;
     public List<string> Origins { get; set; } = [];
     public List<string> Headers { get; set; } = [];
