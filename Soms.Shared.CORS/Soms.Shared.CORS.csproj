@@ -4,7 +4,26 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>Soms.Shared.CORS</RootNamespace>
+        <PackageId>Soms.Shared.CORS</PackageId>
+        <Authors>somasundar</Authors>
+        <Company>somasundar-work</Company>
+        <Description>Cross-Origin Resource Sharing (CORS) helper library for .NET applications</Description>
+        <PackageTags>CORS, ASP.NET, Middleware</PackageTags>
+        <RepositoryUrl>https://github.com/somasundar-work/Soms.Shared.CORS</RepositoryUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryType>git</RepositoryType>
+        <Authors>somasundar</Authors>
+        <License>MIT</License>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageVersion>1.0.0</PackageVersion>
+        <Company>somasundar-work</Company>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="../README.md" Pack="true" PackagePath="" />
+    </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.3.0" />
