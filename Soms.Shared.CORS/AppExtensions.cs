@@ -2,28 +2,28 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Soms.Shared.CORS;
+namespace Soms.Shared.Cors;
 
 public static class AppExtensions
 {
-    public static IApplicationBuilder UseCors(this IApplicationBuilder app)
+    public static IApplicationBuilder UseAppCors(this IApplicationBuilder app)
     {
         var config = app.ApplicationServices.GetRequiredService<IConfiguration>();
-        var corsOptions = new CorsOptions();
-        config.GetSection("cors").Bind(corsOptions);
+        var CorsOptions = new CorsOptions();
+        config.GetSection("Cors").Bind(CorsOptions);
 
-        if (corsOptions == null)
+        if (CorsOptions == null)
         {
-            throw new ArgumentException("corsOptions must be set");
+            throw new ArgumentException("CorsOptions must be set");
         }
 
-        if (!corsOptions.IsEnabled)
+        if (!CorsOptions.IsEnabled)
             return app;
 
-        corsOptions.Name = string.IsNullOrWhiteSpace(corsOptions.Name)
+        CorsOptions.Name = string.IsNullOrWhiteSpace(CorsOptions.Name)
             ? Constants.DefaultPolicyName
-            : corsOptions.Name;
-        app.UseCors(corsOptions.Name);
+            : CorsOptions.Name;
+        app.UseCors(CorsOptions.Name);
         return app;
     }
 }

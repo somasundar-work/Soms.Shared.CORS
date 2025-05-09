@@ -1,67 +1,67 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Soms.Shared.CORS;
+namespace Soms.Shared.Cors;
 
 public static class ServiceExtensions
 {
-    public static IServiceCollection ConfigureCors(this IServiceCollection services)
+    public static IServiceCollection ConfigureAppCors(this IServiceCollection services)
     {
-        var corsOptions = new CorsOptions();
+        var CorsOptions = new CorsOptions();
         var config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-        config.GetSection("cors").Bind(corsOptions);
+        config.GetSection("Cors").Bind(CorsOptions);
 
-        if (corsOptions == null)
+        if (CorsOptions == null)
         {
-            throw new ArgumentException("corsOptions must be set");
+            throw new ArgumentException("CorsOptions must be set");
         }
 
-        if (!corsOptions.IsEnabled)
+        if (!CorsOptions.IsEnabled)
             return services;
 
-        corsOptions.Name = string.IsNullOrWhiteSpace(corsOptions.Name)
+        CorsOptions.Name = string.IsNullOrWhiteSpace(CorsOptions.Name)
             ? Constants.DefaultPolicyName
-            : corsOptions.Name;
+            : CorsOptions.Name;
 
-        if (corsOptions.Origins == null || corsOptions.Origins.Count == 0)
+        if (CorsOptions.Origins == null || CorsOptions.Origins.Count == 0)
         {
             throw new ArgumentException("Origins must be set");
         }
         services.AddCors(policy =>
         {
             policy.AddPolicy(
-                corsOptions.Name,
+                CorsOptions.Name,
                 builder =>
                 {
-                    if (corsOptions.Origins.Count > 0)
+                    if (CorsOptions.Origins.Count > 0)
                     {
-                        builder.WithOrigins(corsOptions.Origins.ToArray());
+                        builder.WithOrigins(CorsOptions.Origins.ToArray());
                     }
 
-                    if (corsOptions.Methods.Count > 0)
+                    if (CorsOptions.Methods.Count > 0)
                     {
-                        builder.WithMethods(corsOptions.Methods.ToArray());
+                        builder.WithMethods(CorsOptions.Methods.ToArray());
                     }
                     else
                     {
                         builder.AllowAnyMethod();
                     }
 
-                    if (corsOptions.Headers.Count > 0)
+                    if (CorsOptions.Headers.Count > 0)
                     {
-                        builder.WithHeaders(corsOptions.Headers.ToArray());
+                        builder.WithHeaders(CorsOptions.Headers.ToArray());
                     }
                     else
                     {
                         builder.AllowAnyHeader();
                     }
 
-                    if (corsOptions.ExposedHeaders.Count > 0)
+                    if (CorsOptions.ExposedHeaders.Count > 0)
                     {
-                        builder.WithExposedHeaders(corsOptions.ExposedHeaders.ToArray());
+                        builder.WithExposedHeaders(CorsOptions.ExposedHeaders.ToArray());
                     }
 
-                    if (corsOptions.AllowCredentials)
+                    if (CorsOptions.AllowCredentials)
                     {
                         builder.AllowCredentials();
                     }

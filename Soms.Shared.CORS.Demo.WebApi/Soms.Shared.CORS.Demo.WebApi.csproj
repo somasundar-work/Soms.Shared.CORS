@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Soms.Shared.CORS\Soms.Shared.CORS.csproj" />
+      <ProjectReference Include="..\Soms.Shared.Cors\Soms.Shared.Cors.csproj" />
     </ItemGroup>
 
 </Project>

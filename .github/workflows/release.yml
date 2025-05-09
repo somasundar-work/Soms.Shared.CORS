@@ -3,7 +3,7 @@ name: Build and Release Library
 on:
   push:
     paths:
-      - Soms.Shared.CORS/**
+      - Soms.Shared.Cors/**
     branches:
       - main
       - release/*
@@ -47,7 +47,7 @@ jobs:
 
       - name: Pack
         run: |
-          dotnet pack Soms.Shared.CORS/Soms.Shared.CORS.csproj \
+          dotnet pack Soms.Shared.Cors/Soms.Shared.Cors.csproj \
             --configuration Release \
             --output ./artifacts \
             /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}

@@ -1,4 +1,4 @@
-namespace Soms.Shared.CORS;
+namespace Soms.Shared.Cors;
 
 internal static class Constants
 {
