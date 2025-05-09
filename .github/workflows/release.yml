@@ -48,7 +48,6 @@ jobs:
         run: |
           echo "GitVersion SemVer: ${{ steps.gitversion.outputs.SemVer }}"
           echo "GitVersion FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
-          echo "GitVersion NuGet Version: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
 
       - name: Restore Dependencies
         run: dotnet restore
@@ -61,7 +60,7 @@ jobs:
           dotnet pack Soms.Shared.Cors/Soms.Shared.Cors.csproj \
             --configuration Release \
             --output ./artifacts \
-            /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
+            /p:PackageVersion=${{ steps.gitversion.outputs.MajorMinorPatch }}
 
       - name: Push to NuGet (nuget.org)
         run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
@@ -69,6 +68,13 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.gitversion.outputs.fullSemVer }} 
+          tag_name: ${{ steps.gitversion.outputs.MajorMinorPatch }} 
           name: Release ${{ steps.gitversion.outputs.semVer }}
+          body: |
+            ## Release Notes
+            - Release version: ${{ steps.gitversion.outputs.MajorMinorPatch }}
+            - Release date: ${{ steps.gitversion.outputs.CommitDate }}
+            - Release commit: ${{ github.sha }}
+            - Release SemVer: ${{ steps.gitversion.outputs.SemVer }}
+            - Release FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}
           files: ./artifacts/*.nupkg
