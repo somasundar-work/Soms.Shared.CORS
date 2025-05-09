@@ -28,6 +28,7 @@ public static class ServiceExtensions
         {
             throw new ArgumentException("Origins must be set");
         }
+
         services.AddCors(policy =>
         {
             policy.AddPolicy(

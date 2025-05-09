@@ -1,7 +1,10 @@
 mode: ContinuousDeployment
-versioning-strategy: Auto
-versioning-strategy-config:
-  auto-increment: true
+commit-message-incrementing: Enabled
+
+major-version-bump-message: '\+semver:\s?(breaking|major)'
+minor-version-bump-message: '\+semver:\s?(feature|minor)'
+patch-version-bump-message: '\+semver:\s?(fix|patch)'
+
 branches:
   main:
     increment: Major
