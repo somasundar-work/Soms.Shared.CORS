@@ -16,6 +16,7 @@
         <Authors>somasundar</Authors>
         <License>MIT</License>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageVersion>1.0.0</PackageVersion>
         <Company>somasundar-work</Company>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
