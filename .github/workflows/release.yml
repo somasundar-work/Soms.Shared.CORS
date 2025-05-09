@@ -42,10 +42,12 @@ jobs:
         uses: gittools/actions/gitversion/execute@v1
         with:
           configFilePath: './.github/version.yml'  
-
-      - name: Print GitVersion Output
+          
+      - name: Print GitVersion Outputs
         run: |
-          echo "GitVersion output: ${{ steps.gitversion.outputs.SemVer }}"
+          echo "GitVersion SemVer: ${{ steps.gitversion.outputs.SemVer }}"
+          echo "GitVersion FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
+          echo "GitVersion NuGet Version: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
 
       # - name: Restore Dependencies
       #   run: dotnet restore

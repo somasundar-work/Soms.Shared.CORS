@@ -1,9 +1,17 @@
-mode: Mainline
+mode: ContinuousDeployment
 commit-message-incrementing: Enabled
+
+major-version-bump-message: '\+semver:\s?(breaking|major)'
+minor-version-bump-message: '\+semver:\s?(feature|minor)'
+patch-version-bump-message: '\+semver:\s?(fix|patch)'
+
 branches:
   main:
     increment: Minor
+    prevent-increment-of-merged-branch-version: true
     regex: ^main$
+    tracks-release-branches: true
+    is-release-branch: true
   feature:
     regex: ^feature/
     increment: Patch
