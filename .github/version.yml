@@ -7,7 +7,7 @@ patch-version-bump-message: '\+semver:\s?(fix|patch)'
 
 branches:
   main:
-    increment: Minor
+    increment: Minor,Major
     prevent-increment-of-merged-branch-version: true
     regex: ^main$
     tracks-release-branches: true
