@@ -1,25 +1,21 @@
-name: ContinuousDeployment
+mode: ContinuousDeployment
+commit-message-incrementing: Enabled
 branches:
   main:
-    versioning-mode: MajorMinorPatch
-    commit-message-incrementing: Enabled
+    increment: Minor
     prevent-increment-of-merged-branch-version: true
     regex: ^main$
     tracks-release-branches: true
-    increment: Minor
     is-release-branch: true
   feature:
-    versioning-mode: ContinuousDelivery
     regex: ^feature/
     increment: Patch
     tag: beta
   release:
-    versioning-mode: ContinuousDelivery
     regex: ^release/
-    increment: Minor
+    increment: Patch
     tag: rc
   hotfix:
-    versioning-mode: ContinuousDelivery
     regex: ^hotfix/
     increment: Patch
     tag: hotfix
