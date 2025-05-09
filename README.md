@@ -1,7 +1,8 @@
 # Soms.Shared.Cors
+
 a lightweight library designed to simplify the configuration of Cross-Origin Resource Sharing (Cors) in .NET applications using appsettings.json.
 
-## Usage
+## Usage Example
 
 ### To Configure Cors
 ```csharp
@@ -29,39 +30,24 @@ app.UseAppCors();
 }
 ```
 
-Note: Mandatory fields are "IsEnabled" and "Origins". below example json will also work. 
+### Json Fields Mandatory and Default Values
 
-```json
-{
-    "cors": {
-        "IsEnabled": true,
-        "Origins": ["example.com", "api.com"],
-    }
-}
-```
-
-### default values for not configured Fields
-
-| Property         | Default Value     |
-|------------------|-------------------|
-| Name             | `defaultPolicy`   |
-| Headers          | `AllowAnyHeader`  |
-| Methods          | `AllowAnyMethod`  |
-| ExposedHeaders   | `None`            |
-| AllowCredentials | `None`            |
+| Property         | Mandatory  | Default Value     |
+|------------------|------------|-------------------|
+| IsEnabled        | No         | `false`           |
+| Name             | No         | `defaultPolicy`   |
+| Origins          | Yes        |  -                |
+| Headers          | No         | `AllowAnyHeader`  |
+| Methods          | No         | `AllowAnyMethod`  |
+| ExposedHeaders   | No         | `None`            |
+| AllowCredentials | No         | `None`            |
 
 ### 🚀 Semantic Versioning Rules (GitVersion + Conventional Commits)
 
-| Commit Type                         | Version Change                     |
-|------------------------------------|------------------------------------|
-| `feat: ...`                        | Minor version bump (e.g., 1.2.0 → 1.3.0) |
-| `fix: ...`                         | Patch version bump (e.g., 1.2.0 → 1.2.1) |
-| `feat!: ...`                       | **Major** version bump (e.g., 1.2.0 → 2.0.0) |
-| `fix!: ...`                        | **Major** version bump (e.g., 1.2.0 → 2.0.0) |
-| Body includes `BREAKING CHANGE:`  | **Major** version bump             |
+| Commit Type                         | Version Change                              |
+|-------------------------------------|---------------------------------------------|
+| To `Main` Branch                    | Minor version bump (e.g., 1.2.0 → 1.3.0)    |
+| `fix: ...`                          | Patch version bump (e.g., 1.2.0 → 1.2.1)     |
+| git tag `2.0.0` or `3.0.0` | **Major** version bump (e.g., 1.2.0 → 2.0.0) |
 
-### Versioning Bump Message Rules
-
-major-version-bump-message: '\+semver:\s?(breaking|major)'
-minor-version-bump-message: '\+semver:\s?(feature|minor)'
-patch-version-bump-message: '\+semver:\s?(fix|patch)'
+# Thank You!
