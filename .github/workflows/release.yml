@@ -9,6 +9,7 @@ on:
       - release/*
       - hotfix/*
       - feature/*
+      
 
 permissions:
   contents: write  
@@ -16,10 +17,6 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        dotnet-version: [8.x, 9.x] 
 
     steps:
       - name: Checkout Code
@@ -30,7 +27,9 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: |
+            8.x
+            9.x
 
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v1
@@ -41,44 +40,26 @@ jobs:
         id: gitversion
         uses: gittools/actions/gitversion/execute@v1
         with:
-          configFilePath: './.github/GitVersioning.yml'  
+          configFilePath: './.github/version.yml'  
 
       - name: Print GitVersion Outputs
         run: |
           echo "GitVersion SemVer: ${{ steps.gitversion.outputs.SemVer }}"
           echo "GitVersion FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
           echo "GitVersion NuGet Version: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
-          echo "Major: ${{ steps.gitversion.outputs.Major }}"
-          echo "Minor: ${{ steps.gitversion.outputs.Minor }}"
-          echo "Patch: ${{ steps.gitversion.outputs.Patch }}"
-
-      - name: Extract .NET Major Version
-        id: extract_dotnet_major
-        run: |
-          DOTNET_MAJOR=$(echo "${{ matrix.dotnet-version }}" | cut -d'.' -f1)
-          echo "DOTNET_MAJOR=$DOTNET_MAJOR" >> $GITHUB_ENV
-          echo "Extracted .NET Major Version: $DOTNET_MAJOR"
-
-      - name: Construct Custom Version
-        id: custom_version
-        run: |
-          VERSION="${{ env.DOTNET_MAJOR }}.${{ steps.gitversion.outputs.Minor }}.${{ steps.gitversion.outputs.Patch }}"
-          echo "CUSTOM_VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Constructed Custom Version: $VERSION"
 
       - name: Restore Dependencies
-        run: dotnet restore -f ${{ matrix.dotnet-version }}
+        run: dotnet restore
 
       - name: Build
-        run: dotnet build -f ${{ matrix.dotnet-version }} --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore
 
       - name: Pack
         run: |
           dotnet pack Soms.Shared.Cors/Soms.Shared.Cors.csproj \
-            -f ${{ matrix.dotnet-version }} \
             --configuration Release \
             --output ./artifacts \
-            /p:PackageVersion=${{ env.CUSTOM_VERSION }}
+            /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
 
       - name: Push to NuGet (nuget.org)
         run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
@@ -86,6 +67,6 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.CUSTOM_VERSION }} 
-          name: Release ${{ env.CUSTOM_VERSION }}
+          tag_name: ${{ steps.gitversion.outputs.fullSemVer }} 
+          name: Release ${{ steps.gitversion.outputs.semVer }}
           files: ./artifacts/*.nupkg
