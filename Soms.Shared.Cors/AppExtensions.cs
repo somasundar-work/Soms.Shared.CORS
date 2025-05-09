@@ -24,6 +24,7 @@ public static class AppExtensions
             ? Constants.DefaultPolicyName
             : CorsOptions.Name;
         app.UseCors(CorsOptions.Name);
+
         return app;
     }
 }
