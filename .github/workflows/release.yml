@@ -67,14 +67,15 @@ jobs:
           echo "Constructed Custom Version: $VERSION"
 
       - name: Restore Dependencies
-        run: dotnet restore
+        run: dotnet restore -f ${{ matrix.dotnet-version }}
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build -f ${{ matrix.dotnet-version }} --configuration Release --no-restore
 
       - name: Pack
         run: |
           dotnet pack Soms.Shared.Cors/Soms.Shared.Cors.csproj \
+            -f ${{ matrix.dotnet-version }} \
             --configuration Release \
             --output ./artifacts \
             /p:PackageVersion=${{ env.CUSTOM_VERSION }}
