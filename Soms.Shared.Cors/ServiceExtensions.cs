@@ -7,8 +7,9 @@ public static class ServiceExtensions
 {
     public static IServiceCollection ConfigureAppCors(this IServiceCollection services)
     {
-        var CorsOptions = new CorsOptions();
         var config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+
+        var CorsOptions = new CorsOptions();
         config.GetSection("Cors").Bind(CorsOptions);
 
         if (CorsOptions == null)
