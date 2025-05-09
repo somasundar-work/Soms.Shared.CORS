@@ -9,6 +9,7 @@ public static class AppExtensions
     public static IApplicationBuilder UseAppCors(this IApplicationBuilder app)
     {
         var config = app.ApplicationServices.GetRequiredService<IConfiguration>();
+
         var CorsOptions = new CorsOptions();
         config.GetSection("Cors").Bind(CorsOptions);
 
