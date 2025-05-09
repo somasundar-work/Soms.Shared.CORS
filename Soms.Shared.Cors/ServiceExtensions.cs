@@ -3,8 +3,35 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Soms.Shared.Cors;
 
+/// <summary>
+/// Provides extension methods for configuring CORS settings in an ASP.NET Core application.
+/// </summary>
 public static class ServiceExtensions
 {
+    /// <summary>
+    /// Configures Cross-Origin Resource Sharing (CORS) for the application based on the "Cors" section
+    /// in the <see cref="IConfiguration"/>. Adds a named CORS policy to the <see cref="IServiceCollection"/>.
+    /// </summary>
+    /// <param name="services">The service collection to add CORS services to.</param>
+    /// <returns>The original <see cref="IServiceCollection"/> with CORS configured if enabled.</returns>
+    /// <exception cref="ArgumentException">
+    /// Thrown if CORS is enabled but required options such as "Origins" are not specified.
+    /// </exception>
+    /// <remarks>
+    /// The configuration section "Cors" must be present in the appsettings.json or equivalent configuration source.
+    /// Example configuration:
+    /// <code>
+    /// "Cors": {
+    ///   "IsEnabled": true,
+    ///   "Name": "MyPolicy",
+    ///   "Origins": [ "https://example.com" ],
+    ///   "Methods": [ "GET", "POST" ],
+    ///   "Headers": [ "Content-Type" ],
+    ///   "ExposedHeaders": [ "X-Custom-Header" ],
+    ///   "AllowCredentials": true
+    /// }
+    /// </code>
+    /// </remarks>
     public static IServiceCollection ConfigureAppCors(this IServiceCollection services)
     {
         var config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();

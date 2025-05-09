@@ -1,5 +1,4 @@
 mode: ContinuousDeployment
-
 branches:
   main:
     increment: Minor
