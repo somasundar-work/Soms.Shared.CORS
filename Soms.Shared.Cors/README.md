@@ -33,7 +33,7 @@ app.UseAppCors();
 
 | Property         | Mandatory  | Default Value     |
 |------------------|------------|-------------------|
-| IsEnabled        | Yes        | `false`           |
+| IsEnabled        | No         | `false`           |
 | Name             | No         | `defaultPolicy`   |
 | Origins          | Yes        |  -                |
 | Headers          | No         | `AllowAnyHeader`  |

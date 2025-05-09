@@ -9,6 +9,8 @@ on:
       - release/*
       - hotfix/*
       - feature/*
+    tags:
+      - 'v*'
       
 
 permissions:
