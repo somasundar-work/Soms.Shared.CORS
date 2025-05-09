@@ -3,10 +3,7 @@ commit-message-incrementing: Enabled
 branches:
   main:
     increment: Minor
-    prevent-increment-of-merged-branch-version: true
     regex: ^main$
-    tracks-release-branches: true
-    is-release-branch: true
   feature:
     regex: ^feature/
     increment: Patch
