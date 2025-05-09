@@ -1,0 +1,20 @@
+mode: ContinuousDeployment
+branches:
+  main:
+    increment: Minor
+    prevent-increment-of-merged-branch-version: true
+    regex: ^main$
+    tracks-release-branches: true
+    is-release-branch: true
+  feature:
+    regex: ^feature/
+    increment: Patch
+    tag: beta
+  release:
+    regex: ^release/
+    increment: Patch
+    tag: rc
+  hotfix:
+    regex: ^hotfix/
+    increment: Patch
+    tag: hotfix
