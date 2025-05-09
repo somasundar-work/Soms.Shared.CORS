@@ -42,32 +42,32 @@ jobs:
         uses: gittools/actions/gitversion/execute@v1
         with:
           configFilePath: './.github/version.yml'  
-          
+
       - name: Print GitVersion Outputs
         run: |
           echo "GitVersion SemVer: ${{ steps.gitversion.outputs.SemVer }}"
           echo "GitVersion FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
           echo "GitVersion NuGet Version: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
 
-      # - name: Restore Dependencies
-      #   run: dotnet restore
+      - name: Restore Dependencies
+        run: dotnet restore
 
-      # - name: Build
-      #   run: dotnet build --configuration Release --no-restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
 
-      # - name: Pack
-      #   run: |
-      #     dotnet pack Soms.Shared.Cors/Soms.Shared.Cors.csproj \
-      #       --configuration Release \
-      #       --output ./artifacts \
-      #       /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      - name: Pack
+        run: |
+          dotnet pack Soms.Shared.Cors/Soms.Shared.Cors.csproj \
+            --configuration Release \
+            --output ./artifacts \
+            /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
 
-      # - name: Push to NuGet (nuget.org)
-      #   run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      - name: Push to NuGet (nuget.org)
+        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
-      # - name: Create GitHub Release
-      #   uses: softprops/action-gh-release@v2
-      #   with:
-      #     tag_name: ${{ steps.gitversion.outputs.fullSemVer }} 
-      #     name: Release ${{ steps.gitversion.outputs.semVer }}
-      #     files: ./artifacts/*.nupkg
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.gitversion.outputs.fullSemVer }} 
+          name: Release ${{ steps.gitversion.outputs.semVer }}
+          files: ./artifacts/*.nupkg
