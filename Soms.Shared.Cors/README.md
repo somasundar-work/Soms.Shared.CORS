@@ -49,3 +49,5 @@ Note: Mandatory fields are "IsEnabled" and "Origins". below example json will al
 | Methods          | `AllowAnyMethod`  |
 | ExposedHeaders   | `None`            |
 | AllowCredentials | `None`            |
+
+# Thank You!

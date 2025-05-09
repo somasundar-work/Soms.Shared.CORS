@@ -60,3 +60,9 @@ Note: Mandatory fields are "IsEnabled" and "Origins". below example json will al
 | `feat!: ...`                       | **Major** version bump (e.g., 1.2.0 → 2.0.0) |
 | `fix!: ...`                        | **Major** version bump (e.g., 1.2.0 → 2.0.0) |
 | Body includes `BREAKING CHANGE:`  | **Major** version bump             |
+
+### Versioning Bump Message Rules
+
+major-version-bump-message: '\+semver:\s?(breaking|major)'
+minor-version-bump-message: '\+semver:\s?(feature|minor)'
+patch-version-bump-message: '\+semver:\s?(fix|patch)'
