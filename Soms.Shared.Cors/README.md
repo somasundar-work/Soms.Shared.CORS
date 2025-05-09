@@ -29,25 +29,16 @@ app.UseAppCors();
 }
 ```
 
-Note: Mandatory fields are "IsEnabled" and "Origins". below example json will also work. 
+### Json Fields Mandatory and Default Values
 
-```json
-{
-    "cors": {
-        "IsEnabled": true,
-        "Origins": ["example.com", "api.com"],
-    }
-}
-```
-
-### default values for not configured Fields
-
-| Property         | Default Value     |
-|------------------|-------------------|
-| Name             | `defaultPolicy`   |
-| Headers          | `AllowAnyHeader`  |
-| Methods          | `AllowAnyMethod`  |
-| ExposedHeaders   | `None`            |
-| AllowCredentials | `None`            |
+| Property         | Mandatory  | Default Value     |
+|------------------|------------|-------------------|
+| IsEnabled        | Yes        | `false`           |
+| Name             | No         | `defaultPolicy`   |
+| Origins          | Yes        |  -                |
+| Headers          | No         | `AllowAnyHeader`  |
+| Methods          | No         | `AllowAnyMethod`  |
+| ExposedHeaders   | No         | `None`            |
+| AllowCredentials | No         | `None`            |
 
 # Thank You!
