@@ -5,10 +5,8 @@ branches:
     regex: ^main$
     increment: Minor
     prevent-increment-of-merged-branch-version: true
-    track-merge-target: false
-    is-release-branch: false
     is-mainline: true
-    label: ''  
+    label: ''
 
   feature:
     regex: ^feature/
