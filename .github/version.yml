@@ -1,4 +1,4 @@
-mode: Mainline
+mode: ContinuousDeployment
 commit-message-incrementing: Enabled
 branches:
   main:
