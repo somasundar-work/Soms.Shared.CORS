@@ -1,0 +1,25 @@
+<body>
+    <h1 id="api_response">Waiting for response...</h1>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        main();
+
+        function main() {
+            $.ajax({
+                url: "http://localhost:5295/weatherforecast",
+                success: function (data) {
+                    $('#api_response').text("Success: " + JSON.stringify(data));
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 0) {
+                        $('#api_response').text("Likely CORS error: Request was blocked by the browser.");
+                    } else {
+                        $('#api_response').text("Request failed. Status: " + xhr.status);
+                    }
+                    console.error("XHR Error:", xhr, status, error);
+                }
+            });
+        }
+    </script>
+</body>
